@@ -2,6 +2,7 @@
 
 'use strict';
 
+
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -26,5 +27,8 @@ module.exports = appInfo => {
   return {
     ...config,
     ...userConfig,
+    httpclient: {
+
+    },
   };
 };
