@@ -1,0 +1,36 @@
+$('.article_content  img').each((index, dom) => {
+        // 一直遍历img元素的父级元素知道其为外围div .article_content
+        let comment = null;
+        let numHierarchy = 0;
+        let parentDom = dom;
+        let domNeed = null;
+        while (!($(parentDom).attr('class') === 'article_content')) {
+          numHierarchy++;
+          // 如果能找到p标签，则p标签是需要的标签，p标签下一个标签存在着所需要的评论
+          if ($(parentDom)[0].tagName.toLowerCase() === 'p') {
+            domNeed = $(parentDom).next();
+          }
+          parentDom = $(parentDom).parent();
+        }
+        // 如果层级是3，则表示的是上面两种
+        // 如果层级是2，则直接取img标签的父元素
+        // div p span img
+        // div div p img
+        // div div img
+        if (numHierarchy === 2) {
+          domNeed = $(dom).parent().next();
+        }
+        if (numHierarchy === 3 && domNeed === null) {
+          return;
+        }
+        if ($(domNeed).find('span').length > 0) {
+          comment = $(domNeed).find('span').text();
+        } else {
+          comment = $(domNeed).text();
+        }
+        comment = comment.replace(/\s*/g, '');
+        if (!comment.startsWith('via') && !comment.startsWith('ia') && !comment.startsWith('a。') && !comment.startsWith('a.') && !comment.startsWith('Via') && !comment.startsWith('Vi') && comment !== '') {
+          console.log($(dom).attr('src'));
+          console.log(comment);
+        }
+      });
