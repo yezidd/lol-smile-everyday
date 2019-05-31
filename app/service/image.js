@@ -64,12 +64,12 @@ class ImageService extends Service {
         // 如果发生错误，存储发生错误的原因和此时的
         await this.app.mysql.insert('py_error', {
           error_message: article.id + '无爬取数据请查看具体信息',
-          from_article_id: article.id,
           article_id: article.article_id,
           handle_type: 'ImageService/解析图片和评论',
           current_time: moment().format('YYYY-MM-DD HH:mm:ss'),
           is_result: 0,
           result: '',
+          parse_date: moment().format('YYYY-MM-DD HH:mm:ss'),
         });
       }
       return data;
@@ -77,7 +77,6 @@ class ImageService extends Service {
       // 如果发生错误，存储发生错误的原因和此时的
       await this.app.mysql.insert('py_error', {
         error_message: JSON.stringify(err),
-        from_article_id: article.id,
         article_id: article.article_id,
         handle_type: 'ImageService/添加图片进入数据库',
         current_time: moment().format('YYYY-MM-DD HH:mm:ss'),

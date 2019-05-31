@@ -11,6 +11,7 @@ class ParsePictureComment extends Subscription {
       interval: '3s', // 1 分钟间隔
       type: 'all', // 指定所有的 worker 都需要执行,
       immediate: true,
+      disable: true,
     };
   }
   // subscribe 是真正定时任务执行时被运行的函数
@@ -27,7 +28,7 @@ class ParsePictureComment extends Subscription {
         console.log(`id=>${id}完成存储`);
         id++;
       } else {
-        console.log(`${article_length}条文章解析存储完成`);
+        console.log(`${article_length[0]['count(id)']}条文章解析存储完成`);
       }
     } catch (err) {
       console.log(err);
